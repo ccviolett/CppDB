@@ -1,10 +1,10 @@
 #include "Test.h"
 
-bool Test() {
+int main() {
 	// Test_CSV();
 	Test_OperateInsert();
 
-	return true;
+	return 0;
 }
 
 bool Test_OperateInsert() {
