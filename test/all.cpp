@@ -1,15 +1,14 @@
-#include "Test.h"
+#include <vector>
+// #include "../include/easylogging++.h"
+#include "../src/Table.hpp"
+#include "../src/Operate.hpp"
+#include "../src/CSV.hpp"
 
-int main() {
-	// Test_CSV();
-	Test_OperateInsert();
-
-	return 0;
-}
+using namespace std;
 
 bool Test_OperateInsert() {
-	vector<String> thead = {"name", "author", "pages", "price"};
-	vector<String> ttype = {"string", "string", "int", "double"};
+	std::vector<String> thead = {"name", "author", "pages", "price"};
+	std::vector<String> ttype = {"string", "string", "int", "double"};
 	Table table("default", thead, ttype);
 	/* 
 	 * CREATE TABLE DEFAULT (
@@ -28,29 +27,29 @@ bool Test_OperateInsert() {
 
 bool Test_String_split() {
 	String s = "hello,I,am,Sam";
-	vector<String> v = s.split(',');
+	std::vector<String> v = s.split(',');
 	for (size_t i = 0; i < v.size(); ++i) {
-		cerr << "[" << v[i] << "]" << endl;
+		cerr << "[" << v[i] << "]" << std::endl;
 	}
 	return true;
 }
 
 bool Test_String_split_1() {
 	String s = "(hello,I,am,Sam)";
-	vector<String> v = s.split('(')[1].split(')')[0].split(',');
+	std::vector<String> v = s.split('(')[1].split(')')[0].split(',');
 	for (auto t: v) {
-		cerr << t << endl;
+		cerr << t;
 	}
 	return true;
 }
 
 bool Test_String_split_2() {
 	String s = "insert into Book (name, author, pages, price) values (\"The Da Vinci Code\", \"Dan Brown\", \"454\", \"16.96\")";
-	vector<String> v = s.split('(')[2].split(')')[0].split(',');
+	std::vector<String> v = s.split('(')[2].split(')')[0].split(',');
 	for (auto t: v) {
-		cerr << t << endl;
+		cerr << t;
 	}
-	cerr << s << endl;
+	cerr << s;
 	return true;
 }
 
@@ -62,23 +61,23 @@ bool Test_Operate() {
 
 bool Test_CSV() {
 
-	vector<vector<String>> t;
+	std::vector<std::vector<String>> t;
 
-	vector<String> l;
+	std::vector<String> l;
 	l.push_back("Name");
 	l.push_back("Age");
 	l.push_back("Sex");
 
 	t.push_back(l);
 
-	vector<String> l1;
+	std::vector<String> l1;
 	l1.push_back("Sam");
 	l1.push_back("19");
 	l1.push_back("Male");
 
 	t.push_back(l1);
 
-	vector<String> l2;
+	std::vector<String> l2;
 	l2.push_back("Alice");
 	l2.push_back("16");
 	l2.push_back("Female");
@@ -92,4 +91,11 @@ bool Test_CSV() {
 	CSV test = CSV::getCSVByFileName("test.csv");
 
 	return true;
+}
+
+int main() {
+	// Test_CSV();
+	Test_OperateInsert();
+
+	return 0;
 }
