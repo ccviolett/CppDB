@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <vector>
-#include "String.hpp"
-#include "CSV.hpp"
+#include "Function/String.hpp"
+#include "Function/CSV.hpp"
 
 class Table {
 public:

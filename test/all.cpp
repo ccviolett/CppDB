@@ -1,8 +1,7 @@
-#include <vector>
-// #include "../include/easylogging++.h"
 #include "../src/Table.hpp"
-#include "../src/Operate.hpp"
-#include "../src/CSV.hpp"
+#include "../src/Operate/Operate.hpp"
+#include "../src/Function/CSV.hpp"
+#include <vector>
 
 using namespace std;
 
