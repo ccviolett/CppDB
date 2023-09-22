@@ -1,4 +1,6 @@
-#include "OperateInsert.h"
+#include "OperateInsert.hpp"
+
+using namespace std;
 
 OperateInsert::OperateInsert(String s) {
 	vector<String> v = s.split(' ');
@@ -35,27 +37,23 @@ bool OperateInsert::excute(Database &db) {
 }
 
 void OperateInsert::show() {
-	cerr << table << endl;
-	cerr << column << endl;
-	cerr << values << endl;
+	cerr << table;
+	cerr << column;
+	cerr << values;
 
+	String tlog = "";
 	if (column.size()) {
-		cerr << "{ " << endl;
+		tlog += "{ \n";
 		for (size_t i = 0; i < col_v.size(); ++i) {
-			cerr << col_v[i] << ": " << val_v[i] << endl;
+			tlog += col_v[i] + ": " + val_v[i] + "\n";
 		}
-		cerr << "}" << endl;
+		tlog += "} \n";
 	} else {
-		cerr << "[ ";
-		for (auto t: col_v) {
-			cerr << t << " ";
-		}
-		cerr << "]" << endl;
-
-		cerr << "[";
+		tlog += "[ ";
 		for (auto t: val_v) {
-			cerr << t << " ";
+			tlog += t + " ";
 		}
-		cerr << "]" << endl;
+		tlog += "]";
 	}
+	cerr << tlog;
 }

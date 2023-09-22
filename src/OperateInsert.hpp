@@ -1,16 +1,17 @@
 #ifndef _OPERATE_INSERT_H
 #define _OPERATE_INSERT_H
 
-#include "String.h"
-#include "Operate.h"
+#include "String.hpp"
+#include "Operate.hpp"
+#include <vector>
 
 class OperateInsert : public Operate {
 	private:
 		String table;
 		String column;
 		String values;
-		vector<String> col_v;
-		vector<String> val_v;
+		std::vector<String> col_v;
+		std::vector<String> val_v;
 
 	public:
 		static bool checkType(String s, String type = "INSERT INTO") {
@@ -23,7 +24,5 @@ class OperateInsert : public Operate {
 		virtual void show();
 		friend OperateInsert BuildOperateInsertByString(String s);
 };
-
-#include "OperateInsert.cpp"
 
 #endif

@@ -1,20 +1,22 @@
 #ifndef _STRING_H
 #define _STRING_H
 
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
+#include <string>
+#include <vector>
+#include <regex>
 
 class String {
 	private:
-		string text;
+		std::string text;
 		char split_char;
-		vector<String> split_text;
+		std::vector<String> split_text;
 
 	public:
 		String();
 		String(char c);
 		String(const char *s);
-		String(string s);
+		String(std::string s);
 
 		void append(String s);
 		void append(const char *s);
@@ -24,23 +26,21 @@ class String {
 		size_t size();
 		String substr(int pos, int len = 0x3f);
 
-		operator string();
+		operator std::string();
 		bool operator == (String s);
 		bool operator != (String s);
 		char & operator [] (size_t t);
 		String& operator += (String s);
 
-		vector<String> split(char c);
-		vector<String> split(string c);
+		std::vector<String> split(char c);
+		std::vector<String> split(std::string c);
 
 		String toUpperCase();
 
 		friend String operator + (String a, String b);
-		friend istream & operator >> (istream &in, String &s);
-		friend ostream & operator << (ostream &out, String s);
-		friend istream& getline(ifstream &in, String s);
+		friend std::istream & operator >> (std::istream &in, String &s);
+		friend std::ostream & operator << (std::ostream &out, String s);
+		friend std::istream& getline(std::ifstream &in, String s);
 };
-
-#include "String.cpp"
 
 #endif

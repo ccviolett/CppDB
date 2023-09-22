@@ -1,4 +1,6 @@
-#include "CSV.h"
+#include "CSV.hpp"
+
+using namespace std;
 
 CSV::CSV() { }
 
@@ -43,6 +45,6 @@ CSV CSV::getCSVByFileName(String s) {
 	return csv;
 }
 
-CSV::CSV(vector<vector<String>> t) {
+CSV::CSV(vector<vector<String> > t) {
 	text = t;
 }

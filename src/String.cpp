@@ -1,4 +1,5 @@
-#include "String.h"
+#include "String.hpp"
+
 using namespace std;
 
 String::String() { 
@@ -55,9 +56,9 @@ vector<String> String::split(string c) {
 	re = c;
 
 	split_text = vector<String> (
-			sregex_token_iterator(text.begin(), text.end(), re, -1), 
-			sregex_token_iterator()
-			);
+		sregex_token_iterator(text.begin(), text.end(), re, -1), 
+		sregex_token_iterator()
+	);
 
 	return split_text;
 }
@@ -82,7 +83,7 @@ ostream & operator << (ostream &out, String s) {
 }
 
 istream& getline(ifstream &in, String s) {
-	return std::getline(in, s.text);
+	return getline(in, s.text);
 }
 
 void String::pop_back() {

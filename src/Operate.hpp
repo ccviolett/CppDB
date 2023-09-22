@@ -1,8 +1,8 @@
 #ifndef _OPERATE_H
 #define _OPERATE_H
 
-#include "String.h"
-#include "Database.h"
+#include "String.hpp"
+#include "Database.hpp"
 
 class Operate {
 	public:
@@ -15,12 +15,11 @@ class Operate {
 		static Operate* getOperateFromString(String text);
 };
 
-#include "OperateInsert.h"
-#include "OperateUpdate.h"
-#include "OperateDelete.h"
-#include "OperateSelect.h"
-#include "OperateCreate.h"
 
-#include "Operate.cpp"
+#include "OperateInsert.hpp"
+#include "OperateUpdate.hpp"
+#include "OperateDelete.hpp"
+#include "OperateSelect.hpp"
+#include "OperateCreate.hpp"
 
 #endif

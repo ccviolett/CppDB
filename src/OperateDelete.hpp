@@ -1,7 +1,7 @@
 #ifndef _OPERATE_DELETE_H
 #define _OPERATE_DELETE_H
 
-#include "Operate.h"
+#include "Operate.hpp"
 
 class OperateDelete : public Operate {
 	public:
