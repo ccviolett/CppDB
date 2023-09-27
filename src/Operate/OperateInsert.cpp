@@ -11,15 +11,15 @@ OperateInsert::OperateInsert(String s) {
 	val_v.clear();
 
 	for (size_t i = 3; i < v.size(); ++i) {
-		if (v[i] == "VALUES") {
-			break;
-		} 
+		if (v[i] == "VALUES") { break; } 
 		column += v[i];
 	}
 
 	if (column.size()) {
 		col_v = s.split('(')[1].split(')')[0].split(',');
 		val_v = s.split('(')[2].split(')')[0].split(',');
+	} else {
+		val_v = s.split('(')[1].split(')')[0].split(',');
 	}
 
 	for (size_t i = 0; i < col_v.size(); ++i) {
@@ -32,8 +32,14 @@ OperateInsert::OperateInsert(String s) {
 	}
 }
 
-bool OperateInsert::excute(Database &db) {
-	return true;
+bool OperateInsert::execute() {
+	return this->execute(SingleTable::getInstance().getTable(this->table));
+}
+
+bool OperateInsert::execute(Table &tb) {
+	if (col_v.size() && col_v.size() != val_v.size()) return false;
+	if (!tb.checkName(this->table)) return false;
+	return tb.insert(col_v, val_v);
 }
 
 void OperateInsert::show() {
@@ -55,5 +61,5 @@ void OperateInsert::show() {
 		}
 		tlog += "]";
 	}
-	cerr << tlog;
+	cerr << tlog << endl;
 }

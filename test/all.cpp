@@ -8,7 +8,9 @@ using namespace std;
 bool Test_OperateInsert() {
 	std::vector<String> thead = {"name", "author", "pages", "price"};
 	std::vector<String> ttype = {"string", "string", "int", "double"};
-	Table table("default", thead, ttype);
+	Table table("BOOK", thead, ttype);
+	table.show();
+	SingleTable::getInstance().insertTable(table);
 	/* 
 	 * CREATE TABLE DEFAULT (
 	 *	name string,
@@ -19,8 +21,16 @@ bool Test_OperateInsert() {
 	 */
 
 	String s = "insert into Book (name, author, pages, price) values (\"The Da Vinci Code\", \"Dan Brown\", \"454\", \"16.96\")";
-	Operate *op = Operate::getOperateFromString(s);
+
+	OperateFactory operateFactory;
+	Operate *op = operateFactory.createOperateFromString(s);
 	op->show();
+	op->execute();
+	op->execute();
+	op->execute();
+
+	SingleTable::getInstance().getTable("BOOK").show();
+
 	return true;
 }
 
@@ -53,7 +63,8 @@ bool Test_String_split_2() {
 }
 
 bool Test_Operate() {
-	Operate *op = Operate::getOperateFromCommand();
+	OperateFactory operateFactory;
+	Operate *op = operateFactory.createOperateFromCommand();
 	op->show();
 	return true;
 }
@@ -93,7 +104,6 @@ bool Test_CSV() {
 }
 
 int main() {
-	// Test_CSV();
 	Test_OperateInsert();
 
 	return 0;

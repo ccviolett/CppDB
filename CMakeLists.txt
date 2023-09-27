@@ -17,4 +17,4 @@ message(STATUS ${SRC_LIST})
 
 add_executable(test_all ${TEST_DIR}/all.cpp ${SRC_LIST} ${FUNCTION_LIST} ${OPERATE_LIST})
 
-set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/target")
+# set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/target")
