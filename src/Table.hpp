@@ -17,15 +17,18 @@ class Table {
 		Table();
 		Table(String s);
 		Table(String s, std::vector<String> th, std::vector<String> tt);
+		Table(CSV csv);
 
 		void show();
 		bool checkName(String s);
+		bool init();
 		bool insert(std::vector<String> column, std::vector<String> values);
 };
 
 class SingleTable {
 	private:
-		SingleTable() {};
+		SingleTable() {
+		};
 		~SingleTable() {};
 		std::vector<Table> table_list;
 
@@ -39,7 +42,7 @@ class SingleTable {
 		// SingleTable& operate=(const SingleTable&);
 		
 	public:
-
+		Table& initTable(String s);
 		bool insertTable(Table tb);
 		Table& getTable(String s);
 };

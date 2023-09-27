@@ -9,6 +9,7 @@ Table::Table() {
 }
 
 Table::Table(String s) { 
+	Table();
 	name = s; 
 }
 
@@ -17,11 +18,27 @@ Table::Table(String s,
 	vector<String> tt) {
 	Table();
 	name = s.toUpperCase(); 
-	for (size_t i = 0; i < th.size(); ++i) {
-		head.push_back(th[i].toUpperCase());
+	head = th;
+	type = tt;
+	init();
+}
+
+Table::Table(CSV csv) {
+	Table();
+	head = csv[0];
+	type = csv[1];
+	for (int i = 2; i < csv.getRowNum(); ++i) {
+		data.push_back(csv[i]);
 	}
-	for (size_t i = 0; i < tt.size(); ++i) {
-		type.push_back(tt[i].toUpperCase());
+	init();
+}
+
+bool Table::init() {
+	for (size_t i = 0; i < head.size(); ++i) {
+		head[i] = head[i].toUpperCase();
+	}
+	for (size_t i = 0; i < type.size(); ++i) {
+		type[i] = type[i].toUpperCase();
 	}
 }
 
@@ -88,10 +105,18 @@ bool SingleTable::insertTable(Table tb) {
 	return true;
 }
 
+Table& SingleTable::initTable(String s) {
+	CSV csv;
+	if (csv.readByTableName(s)) {
+		Table tb = csv;
+	}
+}
+
 Table& SingleTable::getTable(String s) {
 	for (size_t i = 0; i < table_list.size(); ++i) {
 		if (table_list[i].checkName(s)) {
 			return table_list[i];
 		}
 	}
+	return initTable(s);
 }

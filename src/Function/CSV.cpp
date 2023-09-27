@@ -7,15 +7,22 @@ CSV::CSV() { }
 bool CSV::readFromFile(ifstream &fin) {
 	String s;
 	while (getline(fin, s)) {
-		getline(fin, s);
 		vector<String> tline = s.split(',');
 		text.push_back(tline);
 	}
 	return true;
 }
 
+bool CSV::readByTableName(String table_name) {
+	return readByFileName(table_name + ".tb");
+}
+
 bool CSV::readByFileName(String file_name) {
 	ifstream fin(file_name);
+	if (!fin.good()) {
+		fin.close();
+		return false;
+	}
 	bool res = readFromFile(fin);
 	fin.close();
 	return res;
