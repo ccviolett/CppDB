@@ -2,6 +2,7 @@
 #define _STRING_H
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <regex>
@@ -32,6 +33,9 @@ class String {
 		char & operator [] (size_t t);
 		String& operator += (String s);
 
+		std::istream& readFromCommandLine(std::ifstream &fin);
+
+		std::vector<String> splitByChar(char c);
 		std::vector<String> split(char c);
 		std::vector<String> split(std::string c);
 
@@ -40,7 +44,6 @@ class String {
 		friend String operator + (String a, String b);
 		friend std::istream & operator >> (std::istream &in, String &s);
 		friend std::ostream & operator << (std::ostream &out, String s);
-		friend std::istream& getline(std::ifstream &in, String s);
 };
 
 #endif

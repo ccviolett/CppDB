@@ -51,7 +51,7 @@ void OperateInsert::show() {
 	if (column.size()) {
 		tlog += "{ \n";
 		for (size_t i = 0; i < col_v.size(); ++i) {
-			tlog += col_v[i] + ": " + val_v[i] + "\n";
+			tlog += "	" + col_v[i] + ": " + val_v[i] + "\n";
 		}
 		tlog += "} \n";
 	} else {

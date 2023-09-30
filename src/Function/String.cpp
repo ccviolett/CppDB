@@ -39,8 +39,13 @@ String& String::operator += (String s) {
 bool String::operator == (String s) { return text == s.text; }
 bool String::operator != (String s) { return text != s.text; }
 
+vector<String> String::splitByChar(char c) {
+	return split(c);
+}
+
 vector<String> String::split(char c) {
-	if (c == split_char) return split_text;
+	// TODO Optimize the speed of split
+	// if (c == split_char) return split_text;
 	split_char = c;
 
 	if (c == ' ') return split("\\s+");
@@ -82,14 +87,14 @@ ostream & operator << (ostream &out, String s) {
 	return out;
 }
 
-istream& getline(ifstream &in, String s) {
-	return getline(in, s.text);
-}
-
 void String::pop_back() {
 	text.pop_back();
 }
 
 void String::pop_front() {
 	*this = substr(1);
+}
+
+istream& String::readFromCommandLine(ifstream &in) {
+	return getline(in, this->text);
 }

@@ -6,7 +6,7 @@ CSV::CSV() { }
 
 bool CSV::readFromFile(ifstream &fin) {
 	String s;
-	while (getline(fin, s)) {
+	while (s.readFromCommandLine(fin)) {
 		vector<String> tline = s.split(',');
 		text.push_back(tline);
 	}
@@ -14,10 +14,12 @@ bool CSV::readFromFile(ifstream &fin) {
 }
 
 bool CSV::readByTableName(String table_name) {
-	return readByFileName(table_name + ".tb");
+	this->name = table_name;
+	return readByFileName(table_name + ".csv");
 }
 
 bool CSV::readByFileName(String file_name) {
+	this->name = file_name.splitByChar('.')[0];
 	ifstream fin(file_name);
 	if (!fin.good()) {
 		fin.close();
@@ -41,6 +43,10 @@ bool CSV::writeToFile(ofstream &fout) {
 
 bool CSV::writeByFileName(String file_name) {
 	ofstream fout(file_name);
+	if (!fout.good()) {
+		fout.close();
+		return false;
+	}	
 	bool res = writeToFile(fout);
 	fout.close();
 	return res;
@@ -54,4 +60,19 @@ CSV CSV::getCSVByFileName(String s) {
 
 CSV::CSV(vector<vector<String> > t) {
 	text = t;
+}
+
+bool CSV::writeByTableName(String table_name) {
+	return writeByFileName(table_name + ".csv");
+}
+
+void CSV::show() {
+	cerr << "CSV: " << name << endl;
+	for (size_t i = 0; i < text.size(); ++i) {
+		for (size_t j = 0; j < text[i].size(); ++j) {
+			cerr << text[i][j] << " ";
+		}
+		cerr << endl;
+	}
+	cerr << endl;
 }

@@ -3,34 +3,28 @@
 using namespace std;
 
 Table::Table() { 
-	name = "";
+	this->name = "";
 	head.clear();
 	type.clear();
 }
 
 Table::Table(String s) { 
 	Table();
-	name = s; 
+	this->setName(s);
 }
 
 Table::Table(String s, 
 	vector<String> th, 
 	vector<String> tt) {
 	Table();
-	name = s.toUpperCase(); 
-	head = th;
-	type = tt;
-	init();
+	this->setName(s);
+	this->setByHead(th, tt);
 }
 
-Table::Table(CSV csv) {
-	Table();
-	head = csv[0];
-	type = csv[1];
-	for (int i = 2; i < csv.getRowNum(); ++i) {
-		data.push_back(csv[i]);
-	}
-	init();
+bool Table::setByHead(vector<String> th, vector<String> tt) {
+	this->head = th;
+	this->type = tt;
+	return init();
 }
 
 bool Table::init() {
@@ -40,6 +34,7 @@ bool Table::init() {
 	for (size_t i = 0; i < type.size(); ++i) {
 		type[i] = type[i].toUpperCase();
 	}
+	return true;
 }
 
 void Table::show() {
@@ -68,12 +63,6 @@ bool Table::checkName(String s) {
 }
 
 bool Table::insert(vector<String> column, vector<String> values) {
-	cerr << "==== Table Insert ====" << endl;
-	cerr << "COLUMN: ";
-	for (size_t i = 0; i < column.size(); ++i) {
-		cerr << column[i] << " ";
-	}
-	cerr << endl;
 
 	vector<String> new_data;
 	if (!column.size()) {
@@ -92,31 +81,39 @@ bool Table::insert(vector<String> column, vector<String> values) {
 					break;
 				}
 			}
-			cerr << head[i] << " - " << ok << endl;
 			if (!ok) new_data.push_back("");
 		}
 	}
 	data.push_back(new_data);
-	return true;
+	return sync();
 }
 
-bool SingleTable::insertTable(Table tb) {
-	table_list.push_back(tb);
-	return true;
-}
-
-Table& SingleTable::initTable(String s) {
-	CSV csv;
-	if (csv.readByTableName(s)) {
-		Table tb = csv;
+bool Table::sync() {
+	vector<vector<String> > text;
+	text.push_back(this->head);
+	text.push_back(this->type);
+	for (size_t i = 0; i < this->data.size(); ++i) {
+		text.push_back(this->data[i]);
 	}
+	return CSV(text).writeByTableName(this->name);
 }
 
-Table& SingleTable::getTable(String s) {
-	for (size_t i = 0; i < table_list.size(); ++i) {
-		if (table_list[i].checkName(s)) {
-			return table_list[i];
-		}
+bool Table::isNewTable() {
+	return this->head.size() == 0;
+}
+
+bool Table::setByCSV(CSV csv) {
+	csv.show();
+	if (csv.name.size()) this->name = csv.name;
+	this->head = csv[0];
+	this->type = csv[1];
+	for (int i = 2; i < csv.getRowNum(); ++i) {
+		data.push_back(csv[i]);
 	}
-	return initTable(s);
+	return init();
+}
+
+bool Table::setName(String s) {
+	this->name = s.toUpperCase();
+	return true;
 }

@@ -6,11 +6,17 @@
 using namespace std;
 
 bool Test_OperateInsert() {
-	std::vector<String> thead = {"name", "author", "pages", "price"};
-	std::vector<String> ttype = {"string", "string", "int", "double"};
-	Table table("BOOK", thead, ttype);
-	table.show();
-	SingleTable::getInstance().insertTable(table);
+	Table &tb = SingleTable::getInstance().getTable("BOOK");
+
+	if (tb.isNewTable()) {
+		cerr << "New Table set" << endl;
+		std::vector<String> thead = {"name", "author", "pages", "price"};
+		std::vector<String> ttype = {"string", "string", "int", "double"};
+		tb.setName("BOOK");
+		tb.setByHead(thead, ttype);
+		tb.show();
+	}
+
 	/* 
 	 * CREATE TABLE DEFAULT (
 	 *	name string,
@@ -25,8 +31,6 @@ bool Test_OperateInsert() {
 	OperateFactory operateFactory;
 	Operate *op = operateFactory.createOperateFromString(s);
 	op->show();
-	op->execute();
-	op->execute();
 	op->execute();
 
 	SingleTable::getInstance().getTable("BOOK").show();
