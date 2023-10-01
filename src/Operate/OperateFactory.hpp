@@ -5,12 +5,12 @@
 
 class OperateFactory {
 	private:
-		std::vector<OperateChecker> op_type_list;
+		std::vector<OperateType> op_type_list;
 
 	public:
 		OperateFactory();
 		bool loadOperateType();
-		bool appendOperateType(OperateChecker checker);
+		bool appendOperateType(OperateType checker);
 		bool checkOperateType(String s, String type);
 		Operate* getOperateFromCommand();
 		Operate* getOperateFromString(String text);

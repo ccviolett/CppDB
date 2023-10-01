@@ -7,18 +7,14 @@ OperateFactory::OperateFactory() {
 }
 
 bool OperateFactory::loadOperateType() {
-	appendOperateType(OperateInsert::getChecker());
-	// appendOperateType(OperateCreate::getChecker());
+	appendOperateType(OperateInsert::getType());
+	// appendOperateType(OperateCreate::getType());
 	return true;
 }
 
-bool OperateFactory::appendOperateType(OperateChecker checker) {
-	op_type_list.push_back(checker);
+bool OperateFactory::appendOperateType(OperateType type) {
+	op_type_list.push_back(type);
 	return true;
-}
-
-bool OperateFactory::checkOperateType(String s, String type) {
-	return s.substr(0, type.size()) == type;
 }
 
 Operate* OperateFactory::getOperateFromCommand() {
@@ -34,9 +30,8 @@ Operate* OperateFactory::getOperateFromCommand() {
 Operate* OperateFactory::getOperateFromString(String text) {
 	text = text.toUpperCase();
 	for (size_t i = 0; i < op_type_list.size(); ++i) {
-		OperateChecker checker = op_type_list[i];
-		if (checkOperateType(text, checker.type)) {
-			return checker.bind(text);
+		if (op_type_list[i].checker(text)) {
+			return op_type_list[i].builder(text);
 		}
 	}
 

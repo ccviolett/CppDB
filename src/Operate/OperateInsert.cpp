@@ -2,7 +2,12 @@
 
 using namespace std;
 
-Operate* OperateInsert::buildFromString(String s) {
+bool OperateInsert::checker(String s) {
+	String type = "INSERT";
+	return s.substr(0, type.size()) == type;
+}
+
+Operate* OperateInsert::builder(String s) {
 	return new OperateInsert(s);
 }
 

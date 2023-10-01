@@ -12,12 +12,12 @@ class OperateInsert : public Operate {
 		std::vector<String> val_v;
 
 	public:
-		static OperateChecker getChecker() {
-			return (OperateChecker) { "INSERT INTO", buildFromString };
+		static OperateType getType() {
+			return (OperateType) { checker, builder };
 		}
 
-		static String getType() { return "INSERT INTO"; }
-		static Operate* buildFromString(String s);
+		static bool checker(String s);
+		static Operate* builder(String s);
 
 		OperateInsert() {}
 		OperateInsert(String s);

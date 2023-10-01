@@ -17,10 +17,10 @@ class Operate {
 		virtual void show() = 0;
 };
 
-class OperateChecker {
+class OperateType {
 	public:
-		String type;
-		std::function<Operate*(String s)> bind;
+		std::function<bool(String s)> checker;
+		std::function<Operate*(String s)> builder;
 };
 
 #include "OperateCreate.hpp"
