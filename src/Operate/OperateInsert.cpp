@@ -1,6 +1,10 @@
-#include "Operate.hpp"
+#include "OperateInsert.hpp"
 
 using namespace std;
+
+Operate* OperateInsert::buildFromString(String s) {
+	return new OperateInsert(s);
+}
 
 OperateInsert::OperateInsert(String s) {
 	vector<String> v = s.split(' ');
