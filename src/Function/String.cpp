@@ -95,6 +95,10 @@ void String::pop_front() {
 	*this = substr(1);
 }
 
-istream& String::readFromCommandLine(ifstream &in) {
+istream& String::readLineFromFile(ifstream &in) {
 	return getline(in, this->text);
+}
+
+istream& String::readLineFromCommand() {
+	return getline(cin, this->text);
 }

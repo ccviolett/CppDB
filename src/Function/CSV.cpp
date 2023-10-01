@@ -6,7 +6,7 @@ CSV::CSV() { }
 
 bool CSV::readFromFile(ifstream &fin) {
 	String s;
-	while (s.readFromCommandLine(fin)) {
+	while (s.readLineFromFile(fin)) {
 		vector<String> tline = s.split(',');
 		text.push_back(tline);
 	}

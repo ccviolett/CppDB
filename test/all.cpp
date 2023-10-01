@@ -29,7 +29,7 @@ bool Test_OperateInsert() {
 	String s = "insert into Book (name, author, pages, price) values (\"The Da Vinci Code\", \"Dan Brown\", \"454\", \"16.96\")";
 
 	OperateFactory operateFactory;
-	Operate *op = operateFactory.createOperateFromString(s);
+	Operate *op = operateFactory.getOperateFromString(s);
 	op->show();
 	op->execute();
 
@@ -68,7 +68,7 @@ bool Test_String_split_2() {
 
 bool Test_Operate() {
 	OperateFactory operateFactory;
-	Operate *op = operateFactory.createOperateFromCommand();
+	Operate *op = operateFactory.getOperateFromCommand();
 	op->show();
 	return true;
 }

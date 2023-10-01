@@ -2,17 +2,17 @@
 
 using namespace std;
 
-Operate* OperateFactory::createOperateFromCommand() {
+Operate* OperateFactory::getOperateFromCommand() {
 	String text, s;
 	do {
 		cin >> s;
 		text.append(s);
 		text.append(" ");
 	} while (s.back() != ';');
-	return createOperateFromString(text);
+	return getOperateFromString(text);
 };
 
-Operate* OperateFactory::createOperateFromString(String text) {
+Operate* OperateFactory::getOperateFromString(String text) {
 	text = text.toUpperCase();
 	if (OperateInsert::checkType(text)) {
     return new OperateInsert(text);

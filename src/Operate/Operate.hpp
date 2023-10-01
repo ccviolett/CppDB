@@ -5,6 +5,8 @@
 #include "../Database.hpp"
 #include "../Table.hpp"
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 class Operate {
 	public:
@@ -85,25 +87,8 @@ class OperateDelete : public Operate {
 
 class OperateFactory {
 	public:
-		Operate* createOperateFromCommand();
-		Operate* createOperateFromString(String text);
+		Operate* getOperateFromCommand();
+		Operate* getOperateFromString(String text);
 };
-
-/*
-template <class AbstractProduct_t>
-class AbstractFactory {
-	public:
-		virtual AbstractProduct_t *CreateProduct() = 0;
-		virtual ~AbstractFactory() {}
-};
-
-template <class AbstractProduct_t, class ConcreteProduct_t>
-class ConcreteFactory : public AbstractFactory<AbstractProduct_t> {
-	public:
-		AbstractProduct_t *CreateProduct() {
-			return new ConcreteProduct_t();
-		}
-};
-*/
 
 #endif

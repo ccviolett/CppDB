@@ -33,7 +33,8 @@ class String {
 		char & operator [] (size_t t);
 		String& operator += (String s);
 
-		std::istream& readFromCommandLine(std::ifstream &fin);
+		std::istream& readLineFromFile(std::ifstream &fin);
+		std::istream& readLineFromCommand();
 
 		std::vector<String> splitByChar(char c);
 		std::vector<String> split(char c);
