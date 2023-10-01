@@ -10,7 +10,8 @@ class OperateFactory {
 	public:
 		OperateFactory();
 		bool loadOperateType();
-		bool appendOperateType(OperateType checker);
+		bool appendOperateType(OperateType type);
+		bool appendOperateType(std::vector<OperateType> type_list);
 		bool checkOperateType(String s, String type);
 		Operate* getOperateFromCommand();
 		Operate* getOperateFromString(String text);

@@ -23,8 +23,8 @@ class OperateType {
 		std::function<Operate*(String s)> builder;
 };
 
-#include "OperateCreate.hpp"
 #include "OperateInsert.hpp"
+#include "OperateCreate.hpp"
 
 class OperateUpdate : public Operate {
 	public:

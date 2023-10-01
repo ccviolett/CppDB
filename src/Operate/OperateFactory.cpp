@@ -8,12 +8,19 @@ OperateFactory::OperateFactory() {
 
 bool OperateFactory::loadOperateType() {
 	appendOperateType(OperateInsert::getType());
-	// appendOperateType(OperateCreate::getType());
+	appendOperateType(OperateCreate::getType());
 	return true;
 }
 
 bool OperateFactory::appendOperateType(OperateType type) {
 	op_type_list.push_back(type);
+	return true;
+}
+
+bool OperateFactory::appendOperateType(vector<OperateType> type_list) {
+	for (size_t i = 0; i < type_list.size(); ++i) {
+		appendOperateType(type_list[i]);
+	}
 	return true;
 }
 
