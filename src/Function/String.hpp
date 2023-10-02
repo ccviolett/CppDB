@@ -27,6 +27,9 @@ class String {
 		size_t size();
 		String substr(int pos, int len = 0x3f);
 
+		String align(String s);
+		String stagger(String s);
+
 		operator std::string();
 		bool operator == (String s);
 		bool operator != (String s);

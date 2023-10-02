@@ -38,6 +38,16 @@ bool Test_OperateInsert() {
 	return true;
 }
 
+bool Test_String_align() {
+	String s = "Hello";
+	cerr << s.align("To") << endl;
+}
+
+bool Test_String_stagger() {
+	String s = "Hello World";
+	cerr << s.stagger("Hello W") << endl;
+}
+
 bool Test_String_split() {
 	String s = "hello,I,am,Sam";
 	std::vector<String> v = s.split(',');
@@ -108,7 +118,6 @@ bool Test_CSV() {
 }
 
 int main() {
-	Test_OperateInsert();
-
+	// Test_OperateInsert();
 	return 0;
 }

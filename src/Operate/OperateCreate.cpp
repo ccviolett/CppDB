@@ -15,7 +15,7 @@ vector<OperateType> OperateCreate::getType() {
 
 bool OperateCreateTable::checker(String s) {
 	String type = "CREATE TABLE";
-	return s.substr(0, type.size()) == type;
+  return s.align(type) == type;
 }
 
 Operate* OperateCreateTable::builder(String s) {

@@ -102,3 +102,13 @@ istream& String::readLineFromFile(ifstream &in) {
 istream& String::readLineFromCommand() {
 	return getline(cin, this->text);
 }
+
+String String::align(String s) {
+	if (s.size() > this->size()) return *this;
+	return this->substr(0, s.size());
+}
+
+String String::stagger(String s) {
+	if (s.size() > this->size()) return "";
+	return this->substr(s.size(), this->size() - s.size());
+}

@@ -24,6 +24,27 @@ bool OperateFactory::appendOperateType(vector<OperateType> type_list) {
 	return true;
 }
 
+Operate* OperateFactory::getOperateByFileName(String file_name) {
+	ifstream fin(file_name);
+	if (!fin.good()) {
+		fin.close();
+		return nullptr;
+	}
+	Operate* res = getOperateFromFile(fin);
+	fin.close();
+	return res;
+}
+
+Operate* OperateFactory::getOperateFromFile(ifstream &in) {
+	String text, s;
+	do {
+		in >> s;
+		text.append(s);
+		text.append(" ");
+	} while (s.back() != ';');
+	return getOperateFromString(text);
+}
+
 Operate* OperateFactory::getOperateFromCommand() {
 	String text, s;
 	do {
