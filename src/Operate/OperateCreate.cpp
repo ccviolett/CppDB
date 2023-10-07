@@ -1,9 +1,10 @@
 #include "OperateCreate.hpp"
 
+#include <utility>
+
 using namespace std;
 
-OperateCreate::OperateCreate() {
-}
+OperateCreate::OperateCreate() = default;
 
 vector<OperateType> OperateCreate::getType() {
   vector<OperateType> type_list;
@@ -18,7 +19,7 @@ bool OperateCreateTable::checker(String s) {
 }
 
 Operate* OperateCreateTable::builder(String s) {
-  return new OperateCreateTable(s);
+  return new OperateCreateTable(std::move(s));
 }
 
 OperateCreateTable::OperateCreateTable() {
@@ -32,7 +33,7 @@ OperateCreateTable::OperateCreateTable(String s) {
     s = s.staggerFront("CREATE TABLE").cleanFrontSpace();
     name = s.split('(')[0].cleanBackSpace();
     s = s.staggerFront(name).cleanFrontSpace();
-    s = s.staggerFront("(").backStagger(")").cleanFrontSpace().cleanBackSpace();
+    s = s.staggerFront("(").staggerBack(")").cleanFrontSpace().cleanBackSpace();
 
     for (int i = 0; i < 7; ++i) {
         String ts = s.seekOrFront(',', '(').cleanFrontSpace().cleanBackSpace();
@@ -56,7 +57,7 @@ OperateCreateTable::OperateCreateTable(String s) {
         if (tsize == "") type.push_back(tt);
         else type.push_back(tt + "(" + tsize + ")");
 
-        s = s.staggerFront(', ').cleanFrontSpace().cleanBackSpace();
+        s = s.staggerFront(", ").cleanFrontSpace().cleanBackSpace();
         if (s == "") break;
     }
 }

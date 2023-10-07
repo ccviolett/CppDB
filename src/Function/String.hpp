@@ -23,6 +23,7 @@ class String {
 		void pop_front();
 		char back();
 		size_t size();
+        bool have(char c);
 		String substr(int pos, int len = 0x3f);
         String lrSubstr(int l, int r);
 
@@ -33,7 +34,7 @@ class String {
 		String alignFront(String s);
 		String staggerFront(String s);
         String alignBack(String s);
-        String backStagger(String s);
+        String staggerBack(String s);
         String seekFront(char c);
         String seekOrFront(char a, char b);
         String seekAndFront(char a, char b);

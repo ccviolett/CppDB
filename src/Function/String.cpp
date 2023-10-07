@@ -120,7 +120,7 @@ String String::staggerFront(String s) {
 	return this->substr(s.size(), this->size() - s.size());
 }
 
-String String::backStagger(String s) {
+String String::staggerBack(String s) {
     if (s.size() >= this->size()) return "";
     return this->substr(0, this->size() - s.size());
 }
@@ -153,6 +153,15 @@ String String::seekFront(char c) {
     return *this;
 }
 
+String String::seekBack(char c) {
+    for (int i = text.size() - 1; i > 0; --i) {
+        if (text[i] == c) {
+            return lrSubstr(0, i - 1);
+        }
+    }
+    return "";
+}
+
 String String::seekOrFront(char a, char b) {
     if (text[0] == a || text[0] == b) return "";
     for (int i = 1; i < text.size(); ++i) {
@@ -173,4 +182,11 @@ String String::seekAndFront(char a, char b) {
         }
     }
     return *this;
+}
+
+bool String::have(char c) {
+    for (size_t i = 0; i < text.size(); ++i) {
+        if (text[i] == c) return true;
+    }
+    return false;
 }

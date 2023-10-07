@@ -2,18 +2,31 @@
 
 using namespace std;
 
-CSV::CSV() { }
+CSV::CSV() = default;
 
 bool CSV::readFromFile(ifstream &fin) {
 	String s;
 	while (s.readLineFromFile(fin)) {
-		vector<String> tline = s.split(',');
-		text.push_back(tline);
+        vector<String> tline = s.split(' ');
+        vector<String> tres;
+        for (auto t : tline) {
+            t = t.staggerFront(t.seekFront('"') + '"')
+                    .alignFront(t.seekBack('"'));
+            String os = "";
+            vector<String> tv = t.split('"');
+            for (auto v : tv) {
+                if (v == "") os += '"';
+                else os += v;
+            }
+            cerr << os << endl;
+            tres.push_back(os);
+        }
+		text.push_back(tres);
 	}
 	return true;
 }
 
-bool CSV::readByTableName(String table_name) {
+bool CSV::readByTableName(const String& table_name) {
 	this->name = table_name;
 	return readByFileName(table_name + ".csv");
 }
@@ -31,11 +44,16 @@ bool CSV::readByFileName(String file_name) {
 }
 
 bool CSV::writeToFile(ofstream &fout) {
-	for (size_t x = 0; x < text.size(); ++x) {
-		int tsize = text[x].size();
+	for (auto & x : text) {
+		size_t tsize = x.size();
 		for (size_t i = 0; i < tsize; ++i) {
-			fout << text[x][i] 
-				<< (i == tsize - 1 ? '\n' : ',');
+            String ts = x[i];
+            String rs = "";
+            vector<String> dq = ts.split('"');
+            for (const auto & i : dq) {
+                rs += "\"" + i + "\"";
+            }
+            fout << rs << (i == tsize - 1 ? "\n" : ", ");
 		}
 	}
 	return true;

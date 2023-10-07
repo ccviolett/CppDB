@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Table& SingleTable::initTable(String s) {
+Table& SingleTable::initTable(const String s) {
 	CSV csv;
 	Table tb(s);
 	if (csv.readByTableName(s)) {
@@ -13,10 +13,10 @@ Table& SingleTable::initTable(String s) {
 	return table_list.back();
 }
 
-Table& SingleTable::getTable(String s) {
-    for (size_t i = 0; i < table_list.size(); ++i) {
-        if (table_list[i].checkName(s)) {
-            return table_list[i];
+Table& SingleTable::getTable(const String& s) {
+    for (auto & t : table_list) {
+        if (t.checkName(s)) {
+            return t;
         }
     }
     cerr << "Get Table Failed, init it." << endl;
