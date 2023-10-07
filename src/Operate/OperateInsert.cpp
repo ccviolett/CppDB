@@ -4,7 +4,7 @@ using namespace std;
 
 bool OperateInsert::checker(String s) {
 	String type = "INSERT";
-	return s.align(type) == type;
+	return s.alignFront(type) == type;
 }
 
 Operate* OperateInsert::builder(String s) {

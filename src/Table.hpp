@@ -49,6 +49,7 @@ class SingleTable {
 	public:
 		Table& initTable(String s);
 		Table& getTable(String s);
+        bool insertTable(Table tb);
 };
 
 #endif

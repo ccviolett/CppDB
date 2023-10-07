@@ -12,7 +12,6 @@ class OperateFactory {
 		bool loadOperateType();
 		bool appendOperateType(OperateType type);
 		bool appendOperateType(std::vector<OperateType> type_list);
-		bool checkOperateType(String s, String type);
 		Operate* getOperateFromCommand();
 		Operate* getOperateFromFile(std::ifstream &fin);
 		Operate* getOperateByFileName(String file_name);

@@ -2,6 +2,8 @@
 #define _OPERATECREATE_H
 
 #include "Operate.hpp"
+#include "../Function/Function.hpp"
+#include "../Table.hpp"
 
 class OperateCreate : public Operate {
 	public:
@@ -14,6 +16,11 @@ class OperateCreate : public Operate {
 };
 
 class OperateCreateTable : public OperateCreate {
+    private:
+        String name;
+        std::vector<String> head;
+        std::vector<String> type;
+
 	public:
 		static OperateType getType() {
 			return (OperateType) { checker, builder };

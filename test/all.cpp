@@ -40,12 +40,12 @@ bool Test_OperateInsert() {
 
 bool Test_String_align() {
 	String s = "Hello";
-	cerr << s.align("To") << endl;
+	cerr << s.alignFront("To") << endl;
 }
 
 bool Test_String_stagger() {
 	String s = "Hello World";
-	cerr << s.stagger("Hello W") << endl;
+	cerr << s.staggerFront("Hello W") << endl;
 }
 
 bool Test_String_split() {
@@ -117,7 +117,18 @@ bool Test_CSV() {
 	return true;
 }
 
+bool Test_OperateCreateTable() {
+    OperateFactory operateFactory;
+    Operate* op = operateFactory.getOperateByFileName("test_operate_create.sql");
+    op->show();
+
+    op->execute();
+
+    return true;
+}
+
 int main() {
 	// Test_OperateInsert();
+    Test_OperateCreateTable();
 	return 0;
 }
