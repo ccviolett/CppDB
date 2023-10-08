@@ -1,5 +1,6 @@
 .idea
 .vscode
+/cmake-build-debug
 
 # 忽略生成的文件
 *.class

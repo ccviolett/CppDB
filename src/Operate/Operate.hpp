@@ -2,8 +2,8 @@
 #define _OPERATE_H
 
 #include "../Function/String.hpp"
-#include "../Database.hpp"
-#include "../Table.hpp"
+#include "../Structure/Database.hpp"
+#include "../Structure/Table.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>

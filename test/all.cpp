@@ -1,4 +1,4 @@
-#include "../src/Table.hpp"
+#include "../src/Structure/Table.hpp"
 #include "../src/Operate/Operate.hpp"
 #include "../src/Function/CSV.hpp"
 #include <vector>
@@ -107,8 +107,50 @@ bool Test_CSV() {
 	return true;
 }
 
-int main() {
-	Test_OperateInsert();
+bool Test_OperateCreateTable() {
+    OperateFactory operateFactory;
+    Operate* op = operateFactory.getOperateByFileName("test_operate_create.sql");
+    op->show();
+    op->execute();
 
+    return true;
+}
+
+bool Test_CSV_1() {
+    std::vector<std::vector<String>> t;
+
+    std::vector<String> l;
+    l.emplace_back("Nam,e");
+    l.emplace_back("A,ge");
+    l.emplace_back("Se,x");
+
+    t.emplace_back(l);
+
+    std::vector<String> l1;
+    l1.emplace_back(R"(S"a,m)");
+    l1.emplace_back("19");
+    l1.emplace_back("Male");
+
+    t.emplace_back(l1);
+
+    std::vector<String> l2;
+    l2.emplace_back("Alice");
+    l2.emplace_back("16");
+    l2.emplace_back("Female");
+
+    t.emplace_back(l2);
+
+    CSV csv(t);
+
+    csv.writeByFileName("test_1.csv");
+
+    CSV test = CSV::getCSVByFileName("test_1.csv");
+
+    test.show();
+    return true;
+}
+
+int main() {
+    Test_OperateCreateTable();
 	return 0;
 }
