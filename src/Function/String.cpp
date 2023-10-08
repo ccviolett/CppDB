@@ -2,9 +2,8 @@
 
 using namespace std;
 
-String::String() { 
-	split_char = 0;
-	split_text.clear();
+String::String() {
+    text = "";
 }
 
 String::String(char c) {
@@ -44,9 +43,8 @@ vector<String> String::splitByChar(char c) {
 }
 
 vector<String> String::split(char c) {
-	// TODO Optimize the speed of split
-	// if (c == split_char) return split_text;
-	split_char = c;
+    char split_char = c;
+    std::vector<String> split_text;
 
 	if (c == ' ') return split("\\s+");
 	if (c == '(') return split("\\(");
@@ -60,7 +58,7 @@ vector<String> String::split(string c) {
 	regex re;
 	re = c;
 
-	split_text = vector<String> (
+	vector<String> split_text = vector<String> (
 		sregex_token_iterator(text.begin(), text.end(), re, -1), 
 		sregex_token_iterator()
 	);
@@ -73,7 +71,6 @@ String String::toUpperCase() {
 	for (size_t i = 0; i < text.size(); ++i) {
 		s.text[i] = toupper(text[i]);
 	}
-	s.split_text.clear();
 	return s;
 }
 
@@ -101,4 +98,95 @@ istream& String::readLineFromFile(ifstream &in) {
 
 istream& String::readLineFromCommand() {
 	return getline(cin, this->text);
+}
+
+String String::lrSubstr(int l, int r) {
+    if (l > r) return "";
+    return substr(l, r - l + 1);
+}
+
+String String::alignFront(String s) {
+    if (s.size() >= this->size()) return *this;
+	return this->substr(0, s.size());
+}
+
+String String::alignBack(String s) {
+    if (s.size() >= this->size()) return *this;
+    return this->substr(this->size() - s.size(), s.size());
+}
+
+String String::staggerFront(String s) {
+    if (s.size() >= this->size()) return "";
+	return this->substr(s.size(), this->size() - s.size());
+}
+
+String String::staggerBack(String s) {
+    if (s.size() >= this->size()) return "";
+    return this->substr(0, this->size() - s.size());
+}
+
+String String::cleanFrontSpace() {
+    for (size_t i = 0; i < text.size(); ++i) {
+        if (text[i] != ' ') {
+            return lrSubstr(i, text.size());
+        }
+    }
+    return *this;
+}
+
+String String::cleanBackSpace() {
+    for (size_t i = text.size() - 1; i >= 0; --i) {
+        if (text[i] != ' ') {
+            return lrSubstr(0, i);
+        }
+    }
+    return *this;
+}
+
+String String::seekFront(char c) {
+    if (text[0] == c) return "";
+    for (int i = 1; i < text.size(); ++i) {
+        if (text[i] == c) {
+            return lrSubstr(0, i - 1);
+        }
+    }
+    return *this;
+}
+
+String String::seekBack(char c) {
+    for (int i = text.size() - 1; i > 0; --i) {
+        if (text[i] == c) {
+            return lrSubstr(0, i - 1);
+        }
+    }
+    return "";
+}
+
+String String::seekOrFront(char a, char b) {
+    if (text[0] == a || text[0] == b) return "";
+    for (int i = 1; i < text.size(); ++i) {
+        if (text[i] == a || text[i] == b) {
+            return lrSubstr(0, i - 1);
+        }
+    }
+    return *this;
+}
+
+String String::seekAndFront(char a, char b) {
+    bool showA = false, showB = false;
+    for (int i = 0; i < text.size(); ++i) {
+        if (text[i] == a) showA = true;
+        if (text[i] == b) showB = true;
+        if (showA && showB) {
+            return lrSubstr(0, i - 1);
+        }
+    }
+    return *this;
+}
+
+bool String::have(char c) {
+    for (size_t i = 0; i < text.size(); ++i) {
+        if (text[i] == c) return true;
+    }
+    return false;
 }

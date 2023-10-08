@@ -15,52 +15,23 @@ class Operate {
 		virtual ~Operate() {}
 		virtual bool execute() = 0;
 		virtual void show() = 0;
-
-		static bool checkType(String s, String type);
 };
 
-class OperateCreate : public Operate {
+class OperateType {
 	public:
-		OperateCreate() {
-		}
-		OperateCreate(String s) {
-		}
-
-		static bool checkType(String s, String type = "CREATE") {
-			return Operate::checkType(s, type);
-		}
+		std::function<bool(String s)> checker;
+		std::function<Operate*(String s)> builder;
 };
 
-class OperateInsert : public Operate {
-	private:
-		String table;
-		String column;
-		String values;
-		std::vector<String> col_v;
-		std::vector<String> val_v;
-
-	public:
-		static bool checkType(String s, String type = "INSERT INTO") {
-			return Operate::checkType(s, type);
-		}
-
-		OperateInsert() {}
-		OperateInsert(String s);
-		virtual bool execute();
-		virtual void show();
-
-		bool execute(Table &tb);
-		friend OperateInsert BuildOperateInsertByString(String s);
-};
+#include "OperateInsert.hpp"
+#include "OperateCreate.hpp"
 
 class OperateUpdate : public Operate {
 	public:
 		OperateUpdate() {}
 		OperateUpdate(String s) {
 		}
-		static bool checkType(String s, String type = "UPDATE") {
-			return Operate::checkType(s, type);
-		}
+		static String getType() { return "UPDATE"; }
 };
 
 class OperateSelect : public Operate {
@@ -69,26 +40,19 @@ class OperateSelect : public Operate {
 		}
 		OperateSelect(String s) {
 		}
-		static bool checkType(String s, String type = "SELECT") {
-			return Operate::checkType(s, type);
-		}
+		static String getType() { return "SELECT"; }
 };
 
 class OperateDelete : public Operate {
+
 	public:
 		OperateDelete() {
 		}
 		OperateDelete(String s) {
 		}
-		static bool checkType(String s, String type = "DELETE") {
-			return Operate::checkType(s, type);
-		}
+		static String getType() { return "DELETE"; }
 };
 
-class OperateFactory {
-	public:
-		Operate* getOperateFromCommand();
-		Operate* getOperateFromString(String text);
-};
+#include "OperateFactory.hpp"
 
 #endif

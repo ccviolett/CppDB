@@ -16,7 +16,6 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/src/Operate OPERATE_LIST)
 message(STATUS ${SRC_LIST})
 
 add_executable(test_all ${TEST_DIR}/all.cpp ${SRC_LIST} ${FUNCTION_LIST} ${OPERATE_LIST}
-        src/Function/Function.cpp
-        src/CppDB.h)
+        src/Function/Function.cpp)
 
 # set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/target")

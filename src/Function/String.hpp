@@ -10,8 +10,6 @@
 class String {
 	private:
 		std::string text;
-		char split_char;
-		std::vector<String> split_text;
 
 	public:
 		String();
@@ -25,7 +23,25 @@ class String {
 		void pop_front();
 		char back();
 		size_t size();
+        bool have(char c);
 		String substr(int pos, int len = 0x3f);
+        String lrSubstr(int l, int r);
+
+        String align(String s) { return alignFront(s); }
+        String stagger(String s) { return staggerFront(s); }
+        String seek(char c) { return seekFront(c); }
+
+		String alignFront(String s);
+		String staggerFront(String s);
+        String alignBack(String s);
+        String staggerBack(String s);
+        String seekFront(char c);
+        String seekOrFront(char a, char b);
+        String seekAndFront(char a, char b);
+        String seekBack(char c);
+        String seekOrBack(char a, char b);
+        String cleanFrontSpace(); // 去除开头空格
+        String cleanBackSpace(); // 去除结尾空格
 
 		operator std::string();
 		bool operator == (String s);

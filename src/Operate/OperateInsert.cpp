@@ -1,6 +1,15 @@
-#include "Operate.hpp"
+#include "OperateInsert.hpp"
 
 using namespace std;
+
+bool OperateInsert::checker(String s) {
+	String type = "INSERT";
+	return s.alignFront(type) == type;
+}
+
+Operate* OperateInsert::builder(String s) {
+	return new OperateInsert(s);
+}
 
 OperateInsert::OperateInsert(String s) {
 	vector<String> v = s.split(' ');
