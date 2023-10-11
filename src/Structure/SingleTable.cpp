@@ -2,6 +2,17 @@
 
 using namespace std;
 
+bool SingleTable::checkTable(const String& table_name) {
+    for (auto & t : table_list) {
+        if (t.checkName(table_name)) {
+            return true;
+        }
+    }
+    CSV csv;
+    if (csv.readByTableName(table_name)) return true;
+    return false;
+}
+
 Table& SingleTable::initTable(const String s) {
 	CSV csv;
 	Table tb(s);

@@ -4,8 +4,6 @@
 
 using namespace std;
 
-OperateCreate::OperateCreate() = default;
-
 vector<OperateType> OperateCreate::getType() {
   vector<OperateType> type_list;
   type_list.push_back(OperateCreateTable::getType());

@@ -50,6 +50,7 @@ class SingleTable {
 		Table& initTable(String s);
 		Table& getTable(const String& s);
         bool insertTable(Table tb);
+        bool checkTable(const String& table_name);
 };
 
 #endif

@@ -7,12 +7,7 @@
 
 class OperateCreate : public Operate {
 	public:
-		OperateCreate();
-
 		static std::vector<OperateType> getType();
-		
-		virtual bool execute() = 0;
-		virtual void show() = 0;
 };
 
 class OperateCreateTable : public OperateCreate {

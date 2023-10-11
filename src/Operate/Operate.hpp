@@ -25,32 +25,33 @@ class OperateType {
 
 #include "OperateInsert.hpp"
 #include "OperateCreate.hpp"
+#include "OperateMess.hpp"
 
 class OperateUpdate : public Operate {
-	public:
-		OperateUpdate() {}
-		OperateUpdate(String s) {
-		}
-		static String getType() { return "UPDATE"; }
+public:
+    OperateUpdate() {}
+    OperateUpdate(String s) {
+    }
+    static String getType() { return "UPDATE"; }
 };
 
 class OperateSelect : public Operate {
-	public:
-		OperateSelect() {
-		}
-		OperateSelect(String s) {
-		}
-		static String getType() { return "SELECT"; }
+public:
+    OperateSelect() {
+    }
+    OperateSelect(String s) {
+    }
+    static String getType() { return "SELECT"; }
 };
 
 class OperateDelete : public Operate {
 
-	public:
-		OperateDelete() {
-		}
-		OperateDelete(String s) {
-		}
-		static String getType() { return "DELETE"; }
+public:
+    OperateDelete() {
+    }
+    OperateDelete(String s) {
+    }
+    static String getType() { return "DELETE"; }
 };
 
 #include "OperateFactory.hpp"
