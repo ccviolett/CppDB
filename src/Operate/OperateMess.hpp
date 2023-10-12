@@ -8,6 +8,7 @@
 #include <vector>
 #include "Operate.hpp"
 #include "../Structure/Table.hpp"
+#include "../Function/Logger.hpp"
 
 class OperateMess : public Operate {
 public:

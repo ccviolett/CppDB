@@ -7,21 +7,25 @@
 using namespace std;
 
 vector<OperateType> OperateMess::getType() {
+    LOG(TRACE);
     vector<OperateType> v;
     v.push_back(OperateMessDesc::getType());
     return v;
 }
 
 OperateMessDesc::OperateMessDesc() {
+    LOG(TRACE);
 
 }
 
 OperateMessDesc::OperateMessDesc(String s) {
+    LOG(TRACE);
     table_name = s.cleanFrontSpace().staggerFront("DESC")
             .cleanFrontSpace().cleanBackSpace();
 }
 
 bool OperateMessDesc::execute() {
+    LOG(TRACE);
     if (!SingleTable::getInstance().checkTable(table_name)) {
         return false;
     }
@@ -31,5 +35,6 @@ bool OperateMessDesc::execute() {
 }
 
 void OperateMessDesc::show() {
+    LOG(TRACE);
     cerr << "Table name: " << table_name << endl;
 }

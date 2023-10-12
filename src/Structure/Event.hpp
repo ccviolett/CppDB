@@ -7,10 +7,10 @@
 #include <fstream>
 
 class Event {
-  private:
+private:
     std::vector<Operate*> op_list;
 
-  public:
+public:
     Event();
     bool getEventByFileName(String file_name);
     bool getEventFromFile(std::ifstream &fin);

@@ -1,6 +1,7 @@
 #ifndef _OPERATE_H
 #define _OPERATE_H
 
+#include "../Function/Logger.hpp"
 #include "../Function/String.hpp"
 #include "../Structure/Database.hpp"
 #include "../Structure/Table.hpp"
@@ -9,18 +10,18 @@
 #include <fstream>
 
 class Operate {
-	public:
-		int id, ver;
+public:
+    int id, ver;
 
-		virtual ~Operate() {}
-		virtual bool execute() = 0;
-		virtual void show() = 0;
+    virtual ~Operate() {}
+    virtual bool execute() = 0;
+    virtual void show() = 0;
 };
 
 class OperateType {
-	public:
-		std::function<bool(String s)> checker;
-		std::function<Operate*(String s)> builder;
+public:
+    std::function<bool(String s)> checker;
+    std::function<Operate*(String s)> builder;
 };
 
 #include "OperateInsert.hpp"

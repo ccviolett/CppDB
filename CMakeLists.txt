@@ -23,7 +23,10 @@ add_executable(test_all test/all.cpp
         src/Function/Function.cpp
         src/Operate/OperateMess.cpp
         src/Operate/OperateMess.hpp
+        include/easylogging++/easylogging++.cc
         src/CppDB.cpp
+        src/Function/Logger.cpp
+        src/Function/Logger.hpp
 )
 
 add_executable(mess test/mess.cpp
@@ -40,7 +43,10 @@ add_executable(mess test/mess.cpp
         src/Function/Function.cpp
         src/Operate/OperateMess.cpp
         src/Operate/OperateMess.hpp
+        include/easylogging++/easylogging++.cc
         src/CppDB.cpp
+        src/Function/Logger.cpp
+        src/Function/Logger.hpp
 )
 
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/target")

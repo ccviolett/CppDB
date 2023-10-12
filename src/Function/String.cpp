@@ -7,18 +7,18 @@ String::String() {
 }
 
 String::String(char c) {
-	text = string(1, c);
-	String();
+    text = string(1, c);
+    String();
 }
 
 String::String(const char *s) {
-	text = s;
-	String();
+    text = s;
+    String();
 }
 
 String::String(string s) {
-	text = s;
-	String();
+    text = s;
+    String();
 }
 
 void String::append(String s) { text.append(s.text); }
@@ -31,73 +31,74 @@ String::operator string() { return text; }
 char & String::operator [] (size_t t) { return text[t]; }
 String operator + (String a, String b) { return String(a.text + b.text); }
 
-String& String::operator += (String s) { 
-	text += s.text; 
-	return *this;
+String& String::operator += (String s) {
+    text += s.text;
+    return *this;
 }
 bool String::operator == (String s) { return text == s.text; }
 bool String::operator != (String s) { return text != s.text; }
 
 vector<String> String::splitByChar(char c) {
-	return split(c);
+    return split(c);
 }
 
 vector<String> String::split(char c) {
     char split_char = c;
     std::vector<String> split_text;
 
-	if (c == ' ') return split("\\s+");
-	if (c == '(') return split("\\(");
-	if (c == ')') return split("\\)");
+    if (c == ' ') return split("\\s+");
+    if (c == '(') return split("\\(");
+    if (c == ')') return split("\\)");
+    if (c == '.') return split("\\.");
 
-	string s(1, c);
-	return split(s);
+    string s(1, c);
+    return split(s);
 }
 
 vector<String> String::split(string c) {
-	regex re;
-	re = c;
+    regex re;
+    re = c;
 
-	vector<String> split_text = vector<String> (
-		sregex_token_iterator(text.begin(), text.end(), re, -1), 
-		sregex_token_iterator()
-	);
+    vector<String> split_text = vector<String> (
+            sregex_token_iterator(text.begin(), text.end(), re, -1),
+            sregex_token_iterator()
+    );
 
-	return split_text;
+    return split_text;
 }
 
 String String::toUpperCase() {
-	String s = *this;
-	for (size_t i = 0; i < text.size(); ++i) {
-		s.text[i] = toupper(text[i]);
-	}
-	return s;
+    String s = *this;
+    for (size_t i = 0; i < text.size(); ++i) {
+        s.text[i] = toupper(text[i]);
+    }
+    return s;
 }
 
 istream & operator >> (istream &in, String &s) {
-	in >> s.text;
-	return in;
+    in >> s.text;
+    return in;
 }
 
 ostream & operator << (ostream &out, String s) {
-	out << s.text;
-	return out;
+    out << s.text;
+    return out;
 }
 
 void String::pop_back() {
-	text.pop_back();
+    text.pop_back();
 }
 
 void String::pop_front() {
-	*this = substr(1);
+    *this = substr(1);
 }
 
 istream& String::readLineFromFile(ifstream &in) {
-	return getline(in, this->text);
+    return getline(in, this->text);
 }
 
 istream& String::readLineFromCommand() {
-	return getline(cin, this->text);
+    return getline(cin, this->text);
 }
 
 String String::lrSubstr(int l, int r) {
@@ -107,7 +108,7 @@ String String::lrSubstr(int l, int r) {
 
 String String::alignFront(String s) {
     if (s.size() >= this->size()) return *this;
-	return this->substr(0, s.size());
+    return this->substr(0, s.size());
 }
 
 String String::alignBack(String s) {
@@ -117,7 +118,7 @@ String String::alignBack(String s) {
 
 String String::staggerFront(String s) {
     if (s.size() >= this->size()) return "";
-	return this->substr(s.size(), this->size() - s.size());
+    return this->substr(s.size(), this->size() - s.size());
 }
 
 String String::staggerBack(String s) {

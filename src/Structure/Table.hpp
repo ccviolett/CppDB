@@ -7,50 +7,50 @@
 #include "../Function/CSV.hpp"
 
 class Table {
-	private:
-		std::vector<String> head;
-		std::vector<String> type;
-		std::vector<std::vector<String> > data;
-	public:
+private:
+    std::vector<String> head;
+    std::vector<String> type;
+    std::vector<std::vector<String> > data;
+public:
 
-		String name;
-		Table();
-		Table(String s);
-		Table(String s, std::vector<String> th, std::vector<String> tt);
+    String name;
+    Table();
+    Table(String s);
+    Table(String s, std::vector<String> th, std::vector<String> tt);
 
-		bool init();
-		bool setName(String s);
-		bool setByHead(std::vector<String> th, std::vector<String> tt);
-		bool setByCSV(CSV csv);
-		void show();
-		bool checkName(String s);
-		bool insert(std::vector<String> column, std::vector<String> values);
-		bool sync();
+    bool init();
+    bool setName(String s);
+    bool setByHead(std::vector<String> th, std::vector<String> tt);
+    bool setByCSV(CSV csv);
+    void show();
+    bool checkName(String s);
+    bool insert(std::vector<String> column, std::vector<String> values);
+    bool sync();
 
-		bool isNewTable();
+    bool isNewTable();
 };
 
 class SingleTable {
-	private:
-		SingleTable() {
-		};
-		~SingleTable() {};
-		std::vector<Table> table_list;
+private:
+    SingleTable() {
+    };
+    ~SingleTable() {};
+    std::vector<Table> table_list;
 
-	public:
-		static SingleTable& getInstance() {
-			static SingleTable instance;
-			return instance;
-		};
+public:
+    static SingleTable& getInstance() {
+        static SingleTable instance;
+        return instance;
+    };
 
-		// SingleTable(const SingleTable&);
-		// SingleTable& operate=(const SingleTable&);
-		
-	public:
-		Table& initTable(String s);
-		Table& getTable(const String& s);
-        bool insertTable(Table tb);
-        bool checkTable(const String& table_name);
+    // SingleTable(const SingleTable&);
+    // SingleTable& operate=(const SingleTable&);
+
+public:
+    Table& initTable(String s);
+    Table& getTable(const String& s);
+    bool insertTable(Table tb);
+    bool checkTable(const String& table_name);
 };
 
 #endif

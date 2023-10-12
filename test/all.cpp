@@ -1,6 +1,4 @@
-#include "../src/Structure/Table.hpp"
-#include "../src/Operate/Operate.hpp"
-#include "../src/Function/CSV.hpp"
+#include "../src/CppDB.h"
 #include <vector>
 
 using namespace std;
