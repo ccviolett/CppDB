@@ -14,8 +14,8 @@ private:
 
 public:
     String();
+    String(const char *s);
     explicit String(char c);
-    explicit String(const char *s);
     explicit String(std::string s);
 
     std::string getRawString();
@@ -47,11 +47,13 @@ public:
     String cleanFrontSpace(); // 去除开头空格
     String cleanBackSpace(); // 去除结尾空格
 
-    operator std::string();
     bool operator == (String s);
     bool operator != (String s);
     char & operator [] (size_t t);
     String& operator += (String s);
+    String& operator + (char c);
+    String& operator += (char c);
+
 
     std::istream& readLineFromFile(std::ifstream &fin);
     std::istream& readLineFromCommand();
@@ -71,6 +73,7 @@ public:
 
     static String getNullString();
     static String getEmptyString();
+
 };
 
 #endif

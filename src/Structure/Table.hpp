@@ -6,10 +6,28 @@
 #include "../Function/String.hpp"
 #include "../Function/CSV.hpp"
 
+class Field {
+public:
+    Field() {
+        Null = true;
+        Default = String::getNullString();
+    }
+    Field(String th, String tt) {
+        this->name = th;
+        this->type = tt;
+    }
+
+    String name;
+    String type;
+    bool Null;
+    String Key;
+    String Default;
+    String Extra;
+};
+
 class Table {
 private:
-    std::vector<String> head;
-    std::vector<String> type;
+    std::vector<Field> field;
     std::vector<std::vector<String> > data;
 public:
 
@@ -26,6 +44,8 @@ public:
     bool checkName(String s);
     bool insert(std::vector<String> column, std::vector<String> values);
     bool sync();
+
+    bool desc();
 
     bool isNewTable();
 };

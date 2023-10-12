@@ -5,59 +5,57 @@ using namespace std;
 Table::Table() {
     LOG(TRACE);
     this->name = "";
-    head.clear();
-    type.clear();
+    field.clear();
 }
 
 Table::Table(String s) {
     LOG(TRACE);
     Table();
-    this->setName(s);
+    this->setName(std::move(s));
 }
 
 Table::Table(String s,
-             vector<String> th,
+             vector<String> tn,
              vector<String> tt) {
     LOG(TRACE);
     Table();
-    this->setName(s);
-    this->setByHead(th, tt);
+    this->setName(std::move(s));
+    this->setByHead(std::move(tn), std::move(tt));
 }
 
 bool Table::setByHead(vector<String> th, vector<String> tt) {
     LOG(TRACE);
-    this->head = th;
-    this->type = tt;
-    return init();
-}
-
-bool Table::init() {
-    LOG(TRACE);
-    for (size_t i = 0; i < head.size(); ++i) {
-        head[i] = head[i].toUpperCase();
+    if (th.size() != tt.size()) {
+        LOG(WARNING) << "The length of 'name'(" << th.size()
+                << ") and the length of 'type'" << tt.size()
+                << " is different. The 'name' shall prevail";
     }
-    for (size_t i = 0; i < type.size(); ++i) {
-        type[i] = type[i].toUpperCase();
+    for (size_t i = 0; i < th.size(); ++i) {
+        if (th[i].haveUpperCase()) {
+            LOG(WARNING) << "The name " << th[i]
+                    << " contains uppercase letters. "
+                    << "It may cause case sensitivity issues due to the cross-platform";
+        }
+        this->field.emplace_back(Field(th[i], tt[i].toLowerCase()));
     }
     return true;
 }
 
 void Table::show() {
     LOG(TRACE);
-    cerr << "Table name: " << name << endl;
     String tlog = "| ";
-    for (size_t i = 0; i < head.size(); ++i) {
-        tlog += head[i] + "(" + type[i] + ") | ";
+    for (size_t i = 0; i < field.size(); ++i) {
+        tlog += field[i].name + "(" + field[i].type + ") | ";
     }
     cerr << tlog << endl;
-    for (size_t i = 0; i < head.size(); ++i) {
+    for (size_t i = 0; i < field.size(); ++i) {
         cerr << "----------------";
     }
     cerr << endl;
-    for (size_t i = 0; i < data.size(); ++i) {
+    for (auto & tl : data) {
         tlog = "| ";
-        for (size_t j = 0; j < data[i].size(); ++j) {
-            tlog += data[i][j] + " | ";
+        for (const auto & tv : tl) {
+            tlog += tv + " | ";
         }
         cerr << tlog << endl;
     }
@@ -71,26 +69,34 @@ bool Table::checkName(String s) {
 
 bool Table::insert(vector<String> column, vector<String> values) {
     LOG(TRACE);
-    vector<String> new_data;
-    if (!column.size()) {
-        new_data = values;
-        for (size_t i = values.size(); i < head.size(); ++i) {
-            new_data.push_back("");
-        }
-    } else {
-        if (column.size() != values.size()) return false;
-        for (size_t i = 0; i < head.size(); ++i) {
-            bool ok = false;
-            for (size_t j = 0; j < column.size(); ++j) {
-                if (column[j].toUpperCase() == head[i].toUpperCase()) {
-                    ok = true;
-                    new_data.push_back(values[j]);
-                    break;
-                }
-            }
-            if (!ok) new_data.push_back("");
+
+    if (column.empty()) {
+        for (auto & f : this->field) {
+            column.push_back(f.name);
         }
     }
+    if (column.size() != values.size()) {
+        LOG(WARNING) << "The length of 'column'(" << column.size()
+                     << ") and the length of 'values'" << values.size()
+                     << " is different. The 'column' shall prevail";
+    }
+
+    vector<String> new_data;
+
+    for (size_t i = 0; i < field.size(); ++i) {
+        bool ok = false;
+        for (size_t j = 0; j < column.size(); ++j) {
+            if (column[j] == field[i].name) {
+                ok = true;
+                new_data.push_back(values[j]);
+                break;
+            }
+        }
+        if (!ok) {
+            new_data.emplace_back(field[i].Default);
+        }
+    }
+
     data.push_back(new_data);
     return sync();
 }
@@ -98,25 +104,31 @@ bool Table::insert(vector<String> column, vector<String> values) {
 bool Table::sync() {
     LOG(TRACE);
     vector<vector<String> > text;
-    text.push_back(this->head);
-    text.push_back(this->type);
-    for (size_t i = 0; i < this->data.size(); ++i) {
-        text.push_back(this->data[i]);
+
+    vector<String> name, type;
+    for (auto t : field) {
+        name.emplace_back(t.name);
+        type.emplace_back(t.type);
+    }
+
+    text.emplace_back(name);
+    text.emplace_back(type);
+    for (auto tl : data) {
+        text.push_back(tl);
     }
     return CSV(text).writeByTableName(this->name);
 }
 
 bool Table::isNewTable() {
     LOG(TRACE);
-    return this->head.size() == 0;
+    return this->field.size() == 0;
 }
 
 bool Table::setByCSV(CSV csv) {
     LOG(TRACE);
     csv.show();
     if (csv.name.size()) this->name = csv.name;
-    this->head = csv[0];
-    this->type = csv[1];
+    setByHead(csv[0], csv[1]);
     for (int i = 2; i < csv.getRowNum(); ++i) {
         data.push_back(csv[i]);
     }
@@ -125,6 +137,17 @@ bool Table::setByCSV(CSV csv) {
 
 bool Table::setName(String s) {
     LOG(TRACE);
-    this->name = s.toUpperCase();
+    if (s.haveUpperCase()) {
+        LOG(WARNING) << "The name " << s
+                     << " contains uppercase letters. "
+                     << "It may cause case sensitivity issues due to the cross-platform";
+    }
+    this->name = s;
+    return true;
+}
+
+bool Table::desc() {
+    LOG(TRACE);
+
     return true;
 }

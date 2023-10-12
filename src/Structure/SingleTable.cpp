@@ -19,10 +19,10 @@ Table& SingleTable::initTable(const String s) {
     CSV csv;
     Table tb(s);
     if (csv.readByTableName(s)) {
-        LOG(TRACE) << "Get CSV by table name " + s + " correct. Set it.";
+        LOG(TRACE) << "Get CSV by table name " << s << " correct. Set it.";
         tb.setByCSV(csv);
     } else {
-        LOG(TRACE) << "Get CSV by table name " + s + " failed. Use default.";
+        LOG(TRACE) << "Get CSV by table name " << s << " failed. Use default.";
     }
     insertTable(tb);
     return table_list.back();

@@ -26,7 +26,6 @@ void String::append(const char *s) { text.append(s); }
 char String::back() { return text.back(); }
 size_t String::size() { return text.size(); }
 String String::substr(int pos, int len) { return String(text.substr(pos, len)); }
-String::operator string() { return text; }
 
 char & String::operator [] (size_t t) { return text[t]; }
 String operator + (String a, String b) { return String(a.text + b.text); }
