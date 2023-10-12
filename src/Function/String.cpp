@@ -3,29 +3,29 @@
 using namespace std;
 
 String::String() {
-    text = "";
+    nullFlag = true;
 }
 
 String::String(char c) {
+    nullFlag = false;
     text = string(1, c);
-    String();
 }
 
 String::String(const char *s) {
+    nullFlag = false;
     text = s;
-    String();
 }
 
 String::String(string s) {
+    nullFlag = false;
     text = s;
-    String();
 }
 
 void String::append(String s) { text.append(s.text); }
 void String::append(const char *s) { text.append(s); }
 char String::back() { return text.back(); }
 size_t String::size() { return text.size(); }
-String String::substr(int pos, int len) { return text.substr(pos, len); }
+String String::substr(int pos, int len) { return String(text.substr(pos, len)); }
 String::operator string() { return text; }
 
 char & String::operator [] (size_t t) { return text[t]; }
@@ -67,10 +67,32 @@ vector<String> String::split(string c) {
     return split_text;
 }
 
+bool String::haveUpperCase() {
+    for (char t : text) {
+        if (toupper(t) == t) return true;
+    }
+    return false;
+}
+
+bool String::haveLowerCase() {
+    for (char t : text) {
+        if (tolower(t) == t) return true;
+    }
+    return false;
+}
+
 String String::toUpperCase() {
     String s = *this;
     for (size_t i = 0; i < text.size(); ++i) {
         s.text[i] = toupper(text[i]);
+    }
+    return s;
+}
+
+String String::toLowerCase() {
+    String s = *this;
+    for (size_t i = 0; i < text.size(); ++i) {
+        s.text[i] = tolower(text[i]);
     }
     return s;
 }
@@ -102,7 +124,7 @@ istream& String::readLineFromCommand() {
 }
 
 String String::lrSubstr(int l, int r) {
-    if (l > r) return "";
+    if (l > r) return getEmptyString();
     return substr(l, r - l + 1);
 }
 
@@ -117,12 +139,12 @@ String String::alignBack(String s) {
 }
 
 String String::staggerFront(String s) {
-    if (s.size() >= this->size()) return "";
+    if (s.size() >= this->size()) return getEmptyString();
     return this->substr(s.size(), this->size() - s.size());
 }
 
 String String::staggerBack(String s) {
-    if (s.size() >= this->size()) return "";
+    if (s.size() >= this->size()) return getEmptyString();
     return this->substr(0, this->size() - s.size());
 }
 
@@ -145,7 +167,7 @@ String String::cleanBackSpace() {
 }
 
 String String::seekFront(char c) {
-    if (text[0] == c) return "";
+    if (text[0] == c) return getEmptyString();
     for (int i = 1; i < text.size(); ++i) {
         if (text[i] == c) {
             return lrSubstr(0, i - 1);
@@ -160,11 +182,11 @@ String String::seekBack(char c) {
             return lrSubstr(0, i - 1);
         }
     }
-    return "";
+    return getEmptyString();
 }
 
 String String::seekOrFront(char a, char b) {
-    if (text[0] == a || text[0] == b) return "";
+    if (text[0] == a || text[0] == b) getEmptyString();
     for (int i = 1; i < text.size(); ++i) {
         if (text[i] == a || text[i] == b) {
             return lrSubstr(0, i - 1);
@@ -190,4 +212,20 @@ bool String::have(char c) {
         if (text[i] == c) return true;
     }
     return false;
+}
+
+bool String::isNull() {
+    return this->nullFlag;
+}
+
+String String::getNullString() {
+    return *new String();
+}
+
+String String::getEmptyString() {
+    return *new String("");
+}
+
+string String::getRawString() {
+    return this->text;
 }

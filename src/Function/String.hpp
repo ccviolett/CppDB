@@ -9,13 +9,16 @@
 
 class String {
 private:
+    bool nullFlag;
     std::string text;
 
 public:
     String();
-    String(char c);
-    String(const char *s);
-    String(std::string s);
+    explicit String(char c);
+    explicit String(const char *s);
+    explicit String(std::string s);
+
+    std::string getRawString();
 
     void append(String s);
     void append(const char *s);
@@ -24,6 +27,7 @@ public:
     char back();
     size_t size();
     bool have(char c);
+    bool isNull();
     String substr(int pos, int len = 0x3f);
     String lrSubstr(int l, int r);
 
@@ -56,11 +60,17 @@ public:
     std::vector<String> split(char c);
     std::vector<String> split(std::string c);
 
+    bool haveUpperCase();
+    bool haveLowerCase();
     String toUpperCase();
+    String toLowerCase();
 
     friend String operator + (String a, String b);
     friend std::istream & operator >> (std::istream &in, String &s);
     friend std::ostream & operator << (std::ostream &out, String s);
+
+    static String getNullString();
+    static String getEmptyString();
 };
 
 #endif
