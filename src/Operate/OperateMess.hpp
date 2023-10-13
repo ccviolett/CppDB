@@ -24,7 +24,7 @@ public:
     }
 
     static bool checker(String s) {
-        return s.cleanFrontSpace().toUpperCase().alignFront("DESC") == "DESC";
+        return Operate::checker(s, "DESC");
     }
 
     static Operate* builder(String s) {

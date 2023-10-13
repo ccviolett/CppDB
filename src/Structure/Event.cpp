@@ -7,7 +7,7 @@ Event::Event() {
 }
 
 bool Event::getEventByFileName(String file_name) {
-    ifstream fin(file_name);
+    ifstream fin(file_name.getRawString());
     if(!fin.good()) return false;
     getEventFromFile(fin);
     return true;

@@ -36,7 +36,6 @@ public:
     Table(String s);
     Table(String s, std::vector<String> th, std::vector<String> tt);
 
-    bool init();
     bool setName(String s);
     bool setByHead(std::vector<String> th, std::vector<String> tt);
     bool setByCSV(CSV csv);

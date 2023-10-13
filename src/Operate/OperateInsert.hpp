@@ -16,8 +16,12 @@ public:
         return (OperateType) { checker, builder };
     }
 
-    static bool checker(String s);
-    static Operate* builder(String s);
+    static bool checker(String s) {
+        return Operate::checker(s, "insert into");
+    }
+    static Operate* builder(String s) {
+        return new OperateInsert(s);
+    }
 
     OperateInsert() {}
     OperateInsert(String s);

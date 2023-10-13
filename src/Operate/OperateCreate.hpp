@@ -21,8 +21,12 @@ public:
         return (OperateType) { checker, builder };
     }
 
-    static bool checker(String s);
-    static Operate* builder(String s);
+    static bool checker(String s) {
+        return Operate::checker(std::move(s), "create table");
+    }
+    static Operate* builder(String s) {
+        return new OperateCreateTable(std::move(s));
+    }
 
     OperateCreateTable();
     OperateCreateTable(String s);

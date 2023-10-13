@@ -132,7 +132,7 @@ bool Table::setByCSV(CSV csv) {
     for (int i = 2; i < csv.getRowNum(); ++i) {
         data.push_back(csv[i]);
     }
-    return init();
+    return true;
 }
 
 bool Table::setName(String s) {

@@ -2,17 +2,6 @@
 
 using namespace std;
 
-bool OperateInsert::checker(String s) {
-    LOG(TRACE);
-    String type = "INSERT";
-    return s.alignFront(type) == type;
-}
-
-Operate* OperateInsert::builder(String s) {
-    LOG(TRACE);
-    return new OperateInsert(s);
-}
-
 OperateInsert::OperateInsert(String s) {
     LOG(TRACE);
     vector<String> v = s.split(' ');

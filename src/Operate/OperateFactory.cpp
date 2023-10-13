@@ -31,7 +31,7 @@ bool OperateFactory::appendOperateType(vector<OperateType> type_list) {
 
 Operate* OperateFactory::getOperateByFileName(String file_name) {
     LOG(TRACE);
-    ifstream fin(file_name);
+    ifstream fin(file_name.getRawString());
     if (!fin.good()) {
         fin.close();
         return nullptr;
@@ -65,7 +65,6 @@ Operate* OperateFactory::getOperateFromCommand() {
 
 Operate* OperateFactory::getOperateFromString(String text) {
     LOG(TRACE);
-    text = text.toUpperCase();
     for (size_t i = 0; i < op_type_list.size(); ++i) {
         if (op_type_list[i].checker(text)) {
             return op_type_list[i].builder(text);

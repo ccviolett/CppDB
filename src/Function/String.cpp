@@ -228,3 +228,12 @@ String String::getEmptyString() {
 string String::getRawString() {
     return this->text;
 }
+
+String& String::operator + (char c) {
+    return *new String(this->text + c);
+}
+
+String& String::operator += (char c) {
+    this->text += c;
+    return *this;
+}

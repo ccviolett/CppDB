@@ -15,7 +15,6 @@ vector<OperateType> OperateMess::getType() {
 
 OperateMessDesc::OperateMessDesc() {
     LOG(TRACE);
-
 }
 
 OperateMessDesc::OperateMessDesc(String s) {

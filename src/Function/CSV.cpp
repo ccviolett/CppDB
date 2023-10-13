@@ -35,7 +35,7 @@ bool CSV::readByTableName(const String& table_name) {
 bool CSV::readByFileName(String file_name) {
     LOG(TRACE) << file_name;
     this->name = file_name.splitByChar('.')[0];
-    ifstream fin(file_name);
+    ifstream fin(file_name.getRawString());
     if (!fin.good()) {
         fin.close();
         return false;
@@ -64,7 +64,7 @@ bool CSV::writeToFile(ofstream &fout) {
 
 bool CSV::writeByFileName(String file_name) {
     LOG(TRACE) << file_name;
-    ofstream fout(file_name);
+    ofstream fout(file_name.getRawString());
     if (!fout.good()) {
         fout.close();
         return false;

@@ -16,6 +16,10 @@ public:
     virtual ~Operate() {}
     virtual bool execute() = 0;
     virtual void show() = 0;
+
+    static bool checker(String s, String type) {
+        return s.cleanFrontSpace().alignFront(type).toUpperCase() == type.toUpperCase();
+    }
 };
 
 class OperateType {

@@ -12,17 +12,6 @@ vector<OperateType> OperateCreate::getType() {
     return type_list;
 }
 
-bool OperateCreateTable::checker(String s) {
-    LOG(TRACE);
-    String type = "CREATE TABLE";
-    return s.alignFront(type) == type;
-}
-
-Operate* OperateCreateTable::builder(String s) {
-    LOG(TRACE);
-    return new OperateCreateTable(std::move(s));
-}
-
 OperateCreateTable::OperateCreateTable() {
     LOG(TRACE);
     name = "";
@@ -42,14 +31,14 @@ OperateCreateTable::OperateCreateTable(String s) {
         String ts = s.seekOrFront(',', '(').cleanFrontSpace().cleanBackSpace();
         s = s.staggerFront(s.seekOrFront(',', '('));
         String th = ts.split(' ')[0];
-        String tt = ts.split(' ')[1];
+        String tt = ts.split(' ')[1].toLowerCase();
         String tsize = "";
-        if (tt == "VARCHAR") {
+        if (tt == "varchar") {
             tsize = s.split(')')[0].split('(')[1];
             s = s.staggerFront(s.seekFront(')'));
             s = s.staggerFront(s.seekFront(','));
         }
-        if (tt == "DOUBLE") {
+        if (tt == "double") {
             tsize = s.split(')')[0].split('(')[1];
             s = s.staggerFront(s.seekFront(')'));
             s = s.staggerFront(s.seekFront(','));
