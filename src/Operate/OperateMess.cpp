@@ -19,7 +19,9 @@ OperateMessDesc::OperateMessDesc() {
 
 OperateMessDesc::OperateMessDesc(String s) {
     LOG(TRACE);
-    table_name = s.cleanFrontSpace().staggerFront("DESC")
+    table_name = s
+            .cleanBackSpace().staggerBack(";")
+            .cleanFrontSpace().staggerFront("DESC")
             .cleanFrontSpace().cleanBackSpace();
 }
 
