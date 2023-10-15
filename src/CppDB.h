@@ -5,8 +5,8 @@
 #ifndef CPPDB_CPPDB_H
 #define CPPDB_CPPDB_H
 
-#include "./Structure/Table.hpp"
-#include "./Operate/Operate.hpp"
+#include "./Structure/Table.h"
+#include "./Operate/Operate.h"
 #include "./Function/CSV.hpp"
 #include "./Function/Logger.hpp"
 

@@ -1,4 +1,4 @@
-#include "OperateFactory.hpp"
+#include "OperateBase.hpp"
 
 using namespace std;
 
@@ -7,11 +7,9 @@ OperateFactory::OperateFactory() {
     loadOperateType();
 }
 
-// TODO Dynamically load Operate Type
+// TODO Dynamically load OperateBase Type
 bool OperateFactory::loadOperateType() {
     LOG(TRACE);
-    appendOperateType(OperateInsert::getType());
-    appendOperateType(OperateCreate::getType());
     return true;
 }
 
@@ -29,19 +27,19 @@ bool OperateFactory::appendOperateType(vector<OperateType> type_list) {
     return true;
 }
 
-Operate* OperateFactory::getOperateByFileName(String file_name) {
+OperateBase* OperateFactory::getOperateByFileName(String file_name) {
     LOG(TRACE);
     ifstream fin(file_name.getRawString());
     if (!fin.good()) {
         fin.close();
         return nullptr;
     }
-    Operate* res = getOperateFromFile(fin);
+    OperateBase* res = getOperateFromFile(fin);
     fin.close();
     return res;
 }
 
-Operate* OperateFactory::getOperateFromFile(ifstream &in) {
+OperateBase* OperateFactory::getOperateFromFile(ifstream &in) {
     LOG(TRACE);
     String text, s;
     do {
@@ -52,7 +50,7 @@ Operate* OperateFactory::getOperateFromFile(ifstream &in) {
     return getOperateFromString(text);
 }
 
-Operate* OperateFactory::getOperateFromCommand() {
+OperateBase* OperateFactory::getOperateFromCommand() {
     LOG(TRACE);
     String text, s;
     do {
@@ -63,7 +61,7 @@ Operate* OperateFactory::getOperateFromCommand() {
     return getOperateFromString(text);
 };
 
-Operate* OperateFactory::getOperateFromString(String text) {
+OperateBase* OperateFactory::getOperateFromString(String text) {
     LOG(TRACE);
     for (size_t i = 0; i < op_type_list.size(); ++i) {
         if (op_type_list[i].checker(text)) {

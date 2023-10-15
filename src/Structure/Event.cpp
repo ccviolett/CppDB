@@ -1,4 +1,4 @@
-#include "Event.hpp"
+#include "Event.h"
 
 using namespace std;
 
@@ -15,10 +15,9 @@ bool Event::getEventByFileName(String file_name) {
 
 bool Event::getEventFromFile(ifstream &fin) {
     Event();
-    OperateFactory operateFactory;
     String s;
     while (s.readLineFromFile(fin)) {
-        this->op_list.push_back(operateFactory.getOperateFromString(s));
+        this->op_list.push_back(Operate::Factory().getOperateFromString(s));
     }
     return true;
 }

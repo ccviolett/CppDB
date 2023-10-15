@@ -1,16 +1,8 @@
-#include "OperateCreate.hpp"
+#include "OperateCreate.h"
 
 #include <utility>
 
 using namespace std;
-
-vector<OperateType> OperateCreate::getType() {
-    LOG(TRACE);
-    vector<OperateType> type_list;
-    type_list.push_back(OperateCreateTable::getType());
-    // type_list.push_back(OperateCreateDatabase::getType());
-    return type_list;
-}
 
 OperateCreateTable::OperateCreateTable() {
     LOG(TRACE);

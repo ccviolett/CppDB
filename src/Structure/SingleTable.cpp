@@ -1,4 +1,4 @@
-#include "Table.hpp"
+#include "Table.h"
 
 using namespace std;
 

@@ -1,9 +1,9 @@
-#ifndef _OPERATEINSERT_H
-#define _OPERATEINSERT_H
+#ifndef CPPDB_OPERATEINSERT_H
+#define CPPDB_OPERATEINSERT_H
 
-#include "Operate.hpp"
+#include "OperateBase.hpp"
 
-class OperateInsert : public Operate {
+class OperateInsert : public OperateBase {
 private:
     String table;
     String column;
@@ -17,9 +17,9 @@ public:
     }
 
     static bool checker(String s) {
-        return Operate::checker(s, "insert into");
+        return OperateBase::checker(s, "insert into");
     }
-    static Operate* builder(String s) {
+    static OperateBase* builder(String s) {
         return new OperateInsert(s);
     }
 

@@ -2,15 +2,15 @@
 // Created by 罗潇阳 on 2023/10/11.
 //
 
-#ifndef CPPDB_OPERATEMESS_HPP
-#define CPPDB_OPERATEMESS_HPP
+#ifndef CPPDB_OPERATEMESS_H
+#define CPPDB_OPERATEMESS_H
 
 #include <vector>
-#include "Operate.hpp"
-#include "../Structure/Table.hpp"
+#include "OperateBase.hpp"
+#include "../Structure/Table.h"
 #include "../Function/Logger.hpp"
 
-class OperateMess : public Operate {
+class OperateMess : public OperateBase {
 public:
     static std::vector<OperateType> getType();
 };
@@ -24,10 +24,10 @@ public:
     }
 
     static bool checker(String s) {
-        return Operate::checker(s, "DESC");
+        return OperateBase::checker(s, "DESC");
     }
 
-    static Operate* builder(String s) {
+    static OperateBase* builder(String s) {
         return new OperateMessDesc(std::move(s));
     }
 
@@ -41,4 +41,4 @@ public:
 };
 
 
-#endif //CPPDB_OPERATEMESS_HPP
+#endif //CPPDB_OPERATEMESS_H

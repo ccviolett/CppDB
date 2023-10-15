@@ -7,10 +7,17 @@
 using namespace std;
 
 int main() {
+    Operate::Factory().appendOperateType(OperateMessDesc::getType());
+    Operate::Factory().getOperateByFileName("test_operate_create.sql")->execute();
+    Operate::Factory().getOperateFromString("desc student;")->execute();
+
+    /*
     OperateFactory of;
     of.appendOperateType(OperateMessDesc::getType());
     of.getOperateByFileName("test_operate_create.sql")->execute();
-    Operate* op = of.getOperateFromString("desc student");
+    OperateBase* op = of.getOperateFromString("desc student;");
     op->execute();
+     */
+
     return 0;
 }

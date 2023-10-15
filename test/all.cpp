@@ -27,7 +27,7 @@ bool Test_OperateInsert() {
 	String s = R"(insert into Book (name, author, pages, price) values ("The Da Vinci Code", "Dan Brown", "454", "16.96"))";
 
 	OperateFactory operateFactory;
-	Operate *op = operateFactory.getOperateFromString(s);
+	OperateBase *op = operateFactory.getOperateFromString(s);
 	op->show();
 	op->execute();
 
@@ -71,7 +71,7 @@ bool Test_String_split_2() {
 
 bool Test_Operate() {
 	OperateFactory operateFactory;
-	Operate *op = operateFactory.getOperateFromCommand();
+	OperateBase *op = operateFactory.getOperateFromCommand();
 	op->show();
 	return true;
 }
@@ -114,7 +114,7 @@ bool Test_CSV() {
 
 bool Test_OperateCreateTable() {
     OperateFactory operateFactory;
-    Operate* op = operateFactory.getOperateByFileName("test_operate_create.sql");
+    OperateBase* op = operateFactory.getOperateByFileName("test_operate_create.sql");
     op->show();
 
     op->execute();
